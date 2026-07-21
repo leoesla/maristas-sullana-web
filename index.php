@@ -46,12 +46,10 @@ switch ($action) {
         break;
 
     default:
-        // 'home' -> Vista pública principal
-        echo "<div style='font-family: sans-serif; text-align:center; padding: 50px;'>";
-        echo "<h1>Plataforma Web - Colegio San José Obrero Maristas Sullana</h1>";
-        echo "<h3>(Vista pública en construcción)</h3>";
-        echo "<br><a href='index.php?action=login' style='padding: 10px 20px; background: #1854DA; color: white; text-decoration: none; border-radius: 5px;'>Acceso Personal Administrativo</a>";
-        echo "</div>";
+        // Ruta principal (Vista pública)
+        require_once __DIR__ . '/controllers/HomeController.php';
+        $controller = new HomeController();
+        $controller->index();
         break;
 }
 ?>
