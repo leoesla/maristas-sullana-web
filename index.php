@@ -25,7 +25,8 @@ switch ($action) {
             
             // NUEVO BOTÓN AGREGADO AQUÍ
             echo "<br><br><a href='index.php?action=comunicados' style='padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;'>Gestionar Comunicados</a><br><br><br>";
-            
+            // EL NUEVO BOTÓN DE ADMISIÓN AQUÍ
+            echo "<a href='index.php?action=admision' style='padding: 10px 20px; background: #fd7e14; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; margin-left: 15px;'>Módulo de Admisión (PDFs)</a><br><br><br>";
             echo "<a href='index.php?action=logout' style='color: red; text-decoration:none;'>[ Cerrar Sesión ]</a>";
             echo "</div>";
         } else {
@@ -42,6 +43,18 @@ switch ($action) {
     case 'guardar_comunicado':
         require_once __DIR__ . '/controllers/ComunicadoController.php';
         $controller = new ComunicadoController();
+        $controller->guardar();
+        break;
+
+        case 'admision':
+        require_once __DIR__ . '/controllers/AdmisionController.php';
+        $controller = new AdmisionController();
+        $controller->index();
+        break;
+
+    case 'guardar_admision':
+        require_once __DIR__ . '/controllers/AdmisionController.php';
+        $controller = new AdmisionController();
         $controller->guardar();
         break;
 
