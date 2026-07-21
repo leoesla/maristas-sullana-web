@@ -10,6 +10,16 @@
         .nav-bar { background: #0e3c9b; padding: 10px; text-align: right; }
         .nav-bar a { color: white; text-decoration: none; font-weight: bold; padding: 10px 20px; font-size: 0.9em; }
         .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
+        
+        /* Estilos para la sección de Admisión */
+        .admision-box { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 5px solid #fd7e14; margin-bottom: 40px; }
+        .admision-list { list-style: none; padding: 0; }
+        .admision-list li { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed #eee; }
+        .admision-list li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .btn-descarga { background: #fd7e14; color: white; text-decoration: none; padding: 6px 12px; border-radius: 4px; font-size: 0.85em; font-weight: bold; margin-left: 10px; display: inline-block; }
+        .btn-descarga:hover { background: #e06c00; }
+
+        /* Estilos para las noticias */
         .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
         .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid #1854DA; }
         .card.Urgente { border-top-color: #dc3545; }
@@ -31,8 +41,27 @@
     </header>
 
     <div class="container">
-        <h3 style="border-bottom: 2px solid #ccc; padding-bottom: 10px;">Últimos Comunicados</h3>
         
+        <!-- SECCIÓN 1: PROCESO DE ADMISIÓN (PDFs) -->
+        <h3 style="border-bottom: 2px solid #ccc; padding-bottom: 10px;">Proceso de Admisión</h3>
+        <div class="admision-box">
+            <p>Descarga los requisitos y prospectos oficiales para el proceso de matrícula escolar:</p>
+            <ul class="admision-list">
+                <?php if(!empty($documentos)): ?>
+                    <?php foreach($documentos as $doc): ?>
+                        <li>
+                            📄 <strong><?= htmlspecialchars($doc['tit_documento']) ?> (Año <?= $doc['anio_vigencia'] ?>)</strong> 
+                            <a href="<?= $doc['rut_archivo'] ?>" target="_blank" class="btn-descarga">↓ Descargar PDF</a>
+                        </li>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <li><em>No hay documentos de admisión disponibles por el momento.</em></li>
+                <?php endif; ?>
+            </ul>
+        </div>
+
+        <!-- SECCIÓN 2: COMUNICADOS RECIENTES -->
+        <h3 style="border-bottom: 2px solid #ccc; padding-bottom: 10px;">Últimos Comunicados</h3>
         <div class="news-grid">
             <?php if(!empty($comunicados)): ?>
                 <?php foreach($comunicados as $row): ?>
@@ -47,6 +76,7 @@
                 <p>No hay comunicados recientes.</p>
             <?php endif; ?>
         </div>
+
     </div>
 </body>
 </html>
