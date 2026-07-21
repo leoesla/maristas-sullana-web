@@ -16,19 +16,33 @@ switch ($action) {
         break;
 
     case 'dashboard':
-        // Vista temporal del Panel de Control protegido
         session_start();
         if(isset($_SESSION['usuario_nombre'])) {
             echo "<div style='font-family: sans-serif; text-align:center; padding: 50px;'>";
             echo "<h1 style='color: #1854DA;'>Panel de Control - Maristas Sullana</h1>";
             echo "<h3>Bienvenido/a, " . $_SESSION['usuario_nombre'] . "</h3>";
             echo "<p>Tu nivel de acceso es: <strong>" . $_SESSION['usuario_rol'] . "</strong></p>";
-            echo "<br><a href='index.php?action=logout' style='color: red; text-decoration:none;'>[ Cerrar Sesión ]</a>";
+            
+            // NUEVO BOTÓN AGREGADO AQUÍ
+            echo "<br><br><a href='index.php?action=comunicados' style='padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;'>Gestionar Comunicados</a><br><br><br>";
+            
+            echo "<a href='index.php?action=logout' style='color: red; text-decoration:none;'>[ Cerrar Sesión ]</a>";
             echo "</div>";
         } else {
-            // Si intenta entrar al dashboard sin loguearse, lo pateamos al login
             header("Location: index.php?action=login");
         }
+        break;
+
+        case 'comunicados':
+        require_once __DIR__ . '/controllers/ComunicadoController.php';
+        $controller = new ComunicadoController();
+        $controller->index();
+        break;
+
+    case 'guardar_comunicado':
+        require_once __DIR__ . '/controllers/ComunicadoController.php';
+        $controller = new ComunicadoController();
+        $controller->guardar();
         break;
 
     default:
