@@ -27,6 +27,9 @@ switch ($action) {
             echo "<br><br><a href='index.php?action=comunicados' style='padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;'>Gestionar Comunicados</a><br><br><br>";
             // EL NUEVO BOTÓN DE ADMISIÓN AQUÍ
             echo "<a href='index.php?action=admision' style='padding: 10px 20px; background: #fd7e14; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; margin-left: 15px;'>Módulo de Admisión (PDFs)</a><br><br><br>";
+            // NUEVO BOTÓN DE CALENDARIO AQUÍ
+            echo "<a href='index.php?action=calendario' style='padding: 10px 20px; background: #6f42c1; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; margin-left: 15px;'>Calendario Escolar</a>";
+            echo "<br><br><br>";
             echo "<a href='index.php?action=logout' style='color: red; text-decoration:none;'>[ Cerrar Sesión ]</a>";
             echo "</div>";
         } else {
@@ -55,6 +58,18 @@ switch ($action) {
     case 'guardar_admision':
         require_once __DIR__ . '/controllers/AdmisionController.php';
         $controller = new AdmisionController();
+        $controller->guardar();
+        break;
+
+        case 'calendario':
+        require_once __DIR__ . '/controllers/CalendarioController.php';
+        $controller = new CalendarioController();
+        $controller->index();
+        break;
+
+    case 'guardar_calendario':
+        require_once __DIR__ . '/controllers/CalendarioController.php';
+        $controller = new CalendarioController();
         $controller->guardar();
         break;
 

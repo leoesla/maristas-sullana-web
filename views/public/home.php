@@ -11,13 +11,18 @@
         .nav-bar a { color: white; text-decoration: none; font-weight: bold; padding: 10px 20px; font-size: 0.9em; }
         .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
         
-        /* Estilos para la sección de Admisión */
-        .admision-box { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 5px solid #fd7e14; margin-bottom: 40px; }
-        .admision-list { list-style: none; padding: 0; }
-        .admision-list li { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed #eee; }
-        .admision-list li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        /* Cajas de secciones */
+        .box { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 40px; }
+        .box-admision { border-left: 5px solid #fd7e14; }
+        .box-calendario { border-left: 5px solid #6f42c1; }
+        
+        /* Listas */
+        .clean-list { list-style: none; padding: 0; margin: 0; }
+        .clean-list li { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed #eee; }
+        .clean-list li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .btn-descarga { background: #fd7e14; color: white; text-decoration: none; padding: 6px 12px; border-radius: 4px; font-size: 0.85em; font-weight: bold; margin-left: 10px; display: inline-block; }
         .btn-descarga:hover { background: #e06c00; }
+        .fecha-badge { color: #6f42c1; font-weight: bold; }
 
         /* Estilos para las noticias */
         .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
@@ -44,9 +49,8 @@
         
         <!-- SECCIÓN 1: PROCESO DE ADMISIÓN (PDFs) -->
         <h3 style="border-bottom: 2px solid #ccc; padding-bottom: 10px;">Proceso de Admisión</h3>
-        <div class="admision-box">
-            <p>Descarga los requisitos y prospectos oficiales para el proceso de matrícula escolar:</p>
-            <ul class="admision-list">
+        <div class="box box-admision">
+            <ul class="clean-list">
                 <?php if(!empty($documentos)): ?>
                     <?php foreach($documentos as $doc): ?>
                         <li>
@@ -55,12 +59,32 @@
                         </li>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <li><em>No hay documentos de admisión disponibles por el momento.</em></li>
+                    <li><em>No hay documentos de admisión disponibles.</em></li>
                 <?php endif; ?>
             </ul>
         </div>
 
-        <!-- SECCIÓN 2: COMUNICADOS RECIENTES -->
+        <!-- SECCIÓN 2: CALENDARIO ESCOLAR -->
+        <h3 style="border-bottom: 2px solid #ccc; padding-bottom: 10px;">Calendario Académico</h3>
+        <div class="box box-calendario">
+            <ul class="clean-list">
+                <?php if(!empty($eventos)): ?>
+                    <?php foreach($eventos as $evento): ?>
+                        <li>
+                            <span class="fecha-badge">
+                                📅 <?= date('d/m/Y', strtotime($evento['fec_inicio'])) ?> 
+                                <?php if($evento['fec_inicio'] != $evento['fec_fin']) echo " al " . date('d/m/Y', strtotime($evento['fec_fin'])); ?>:
+                            </span> 
+                            <?= htmlspecialchars($evento['des_evento']) ?>
+                        </li>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <li><em>No hay eventos programados próximos.</em></li>
+                <?php endif; ?>
+            </ul>
+        </div>
+
+        <!-- SECCIÓN 3: COMUNICADOS RECIENTES -->
         <h3 style="border-bottom: 2px solid #ccc; padding-bottom: 10px;">Últimos Comunicados</h3>
         <div class="news-grid">
             <?php if(!empty($comunicados)): ?>
@@ -80,3 +104,4 @@
     </div>
 </body>
 </html>
+
